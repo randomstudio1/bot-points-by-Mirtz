@@ -54,7 +54,7 @@ client.on('message', message => {
 });
 
 
-const statuses=['Mirt'];let currentStatusIndex=0;client.on('ready',()=>{console.log(("Logged in as "+client.user.tag+""));updateStatus();setInterval(updateStatus,15000)});function updateStatus(){client.user.setPresence({status:'online',activity:{name:statuses[currentStatusIndex],type:'STREAMING',url:'https://www.twitch.tv/yourusername'}});currentStatusIndex= (currentStatusIndex+ 1)% statuses.length}  
+const statuses=['Mirt'];let currentStatusIndex=0;client.on('ready',()=>{console.log(("Logged in as "+client.user.tag+""));updateStatus();setInterval(updateStatus,15000)});function updateStatus(){client.user.setPresence({status:'ldle',activity:{name:statuses[currentStatusIndex],type:'STREAMING',url:'https://www.twitch.tv/yourusername'}});currentStatusIndex= (currentStatusIndex+ 1)% statuses.length}  
 
 
 
