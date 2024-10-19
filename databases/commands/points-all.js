@@ -12,7 +12,7 @@ module.exports = {
     db.all('SELECT user_id, points FROM points', function(err, rows) {
       if (err) {
         console.error(err);
-        return message.channel.send('حدث خطأ أثناء تنفيذ الأمر.');
+        return message.channel.send('There Error');
       }
 
       rows.sort((a, b) => b.points - a.points); // رتب الأعضاء بناءً على عدد النقاط
