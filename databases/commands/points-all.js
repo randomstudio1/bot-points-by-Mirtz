@@ -20,13 +20,13 @@ module.exports = {
       // إنشاء رسالة Embed لعرض عدد النقاط للأعضاء
       const embed = new Discord.MessageEmbed()
         .setColor('BLUE')
-        .setTitle('DashBoard')
-        .setDescription(`Total Of Point: ${rows.reduce((total, row) => total + row.points, 0)}`);
+        .setTitle('pointCount')
+        .setDescription(`مجموع النقاط الكلي: ${rows.reduce((total, row) => total + row.points, 0)}`);
 
       // إضافة قائمة الأعضاء
       rows.forEach((row, index) => {
         const member = message.guild.members.cache.get(row.user_id);
-        embed.addField(`Member Number ${index + 1}`, `${member} - ${row.points} Point`);
+        embed.addField(`العضو رقم ${index + 1}`, `${member} - ${row.points} نقطة`);
       });
 
       message.channel.send(embed);
