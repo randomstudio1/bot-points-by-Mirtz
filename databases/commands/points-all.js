@@ -12,7 +12,7 @@ module.exports = {
     db.all('SELECT user_id, points FROM points', function(err, rows) {
       if (err) {
         console.error(err);
-        return message.channel.send('There Error');
+        return message.channel.send('حدث خطأ أثناء تنفيذ الأمر.');
       }
 
       rows.sort((a, b) => b.points - a.points); // رتب الأعضاء بناءً على عدد النقاط
@@ -20,7 +20,7 @@ module.exports = {
       // إنشاء رسالة Embed لعرض عدد النقاط للأعضاء
       const embed = new Discord.MessageEmbed()
         .setColor('BLUE')
-        .setTitle('pointCount')
+        .setTitle('عدد النقاط')
         .setDescription(`مجموع النقاط الكلي: ${rows.reduce((total, row) => total + row.points, 0)}`);
 
       // إضافة قائمة الأعضاء
