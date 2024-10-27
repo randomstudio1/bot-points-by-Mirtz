@@ -4,23 +4,23 @@ const fs = require('fs');
 
 module.exports = {
   name: 're-point',
-  description: 'To Remove Point',
+  description: 'إزالة عدد محدد من النقاط لعضو معين',
   execute(message, args) {
     // التحقق من أن العضو لديه صلاحية المشرف أو الأدمنستريتور
     if (!message.member.hasPermission('ADMINISTRATOR')) {
-      return message.channel.send('You do not have permission to use this command');
+      return message.channel.send('ليس لديك الصلاحية لاستخدام هذا الأمر.');
     }
 
     // التحقق من وجود عضو مذكور
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
     if (!member) {
-      return message.channel.send('Please Do @ ');
+      return message.channel.send('يرجى ذكر عضو صحيح لإزالة نقاطه.');
     }
 
     // التحقق من وجود عدد النقاط المحدد
     const pointsToRemove = parseInt(args[1]);
     if (isNaN(pointsToRemove)) {
-      return message.channel.send('Please write number to remove point');
+      return message.channel.send('يرجى تحديد عدد نقاط صحيح لإزالتها من العضو.');
     }
 
     // إنشاء مجلد لقاعدة البيانات إذا لم يكن موجودًا
@@ -39,18 +39,18 @@ module.exports = {
     db.get('SELECT points FROM points WHERE user_id = ?', [member.id], function(err, row) {
       if (err) {
         console.error(err);
-        return message.channel.send('There Error');
+        return message.channel.send('حدث خطأ أثناء تنفيذ الأمر.');
       }
 
       if (!row) {
-        return message.channel.send('he do not have point to remove');
+        return message.channel.send('العضو ليس لديه أي نقاط لإزالتها.');
       }
 
       let currentPoints = row.points;
 
       // التحقق من أن عدد النقاط المحدد لا يتجاوز عدد النقاط الحالي
       if (pointsToRemove > currentPoints) {
-        return message.channel.send('Please check the points');
+        return message.channel.send('لا يمكن إزالة عدد النقاط المحدد من العضو لأنه يتجاوز عدد نقاطه الحالي.');
       }
 
       // إزالة عدد النقاط المحدد من العضو
@@ -60,7 +60,7 @@ module.exports = {
         db.run('UPDATE points SET points = ? WHERE user_id = ?', [updatedPoints, member.id], function(err) {
           if (err) {
             console.error(err);
-            return message.channel.send('There Error');
+            return message.channel.send('حدث خطأ أثناء تنفيذ الأمر.');
           }
 
           message.channel.send(`تم إزالة ${pointsToRemove} نقطة من العضو ${member}.`);
@@ -69,7 +69,7 @@ module.exports = {
         db.run('DELETE FROM points WHERE user_id = ?', [member.id], function(err) {
           if (err) {
             console.error(err);
-            return message.channel.send('There Error');
+            return message.channel.send('حدث خطأ أثناء تنفيذ الأمر.');
           }
 
           message.channel.send(`تمت إزالة جميع نقاط العضو ${member} وتمت إزالته من قاعدة البيانات.`);
