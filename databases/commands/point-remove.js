@@ -14,7 +14,7 @@ module.exports = {
     // التحقق من وجود عضو مذكور
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
     if (!member) {
-      return message.channel.send('Please Do @');
+      return message.channel.send('Please Do @ ');
     }
 
     // التحقق من وجود عدد النقاط المحدد
@@ -43,7 +43,7 @@ module.exports = {
       }
 
       if (!row) {
-        return message.channel.send('اhe do not have point to remove');
+        return message.channel.send('he do not have point to remove');
       }
 
       let currentPoints = row.points;
@@ -63,7 +63,7 @@ module.exports = {
             return message.channel.send('There Error');
           }
 
-          message.channel.send(`Removed ${pointsToRemove} From Member ${member}.`);
+          message.channel.send(`تم إزالة ${pointsToRemove} نقطة من العضو ${member}.`);
         });
       } else {
         db.run('DELETE FROM points WHERE user_id = ?', [member.id], function(err) {
@@ -72,7 +72,7 @@ module.exports = {
             return message.channel.send('There Error');
           }
 
-          message.channel.send(`Rremoved From DashBoard Of Point ${member} `);
+          message.channel.send(`تمت إزالة جميع نقاط العضو ${member} وتمت إزالته من قاعدة البيانات.`);
         });
       }
     });
